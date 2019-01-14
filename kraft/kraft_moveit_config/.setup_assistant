@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: kraft_description
+    relative_path: urdf/kraft.xacro
+  SRDF:
+    relative_path: config/kraft.srdf
+  CONFIG:
+    author_name: David Vargas
+    author_email: dvargasfr@gmail.com
+    generated_timestamp: 1496762945

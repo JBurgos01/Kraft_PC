@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>virtualbox_comms</name>
+  <version>0.0.0</version>
+  <license>CC</license>
+  <description>The virtualbox_comms package</description>
+
+  <maintainer email="jaimeburgossanchez@gmail.com">Jaime Burgos</maintainer>
+
+  <depend>roscpp</depend>
+  <!--depend>rospy</depend-->
+  <depend>std_msgs</depend>
+  <build_depend>message_generation</build_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>message_runtime</exec_depend>
+
+</package>

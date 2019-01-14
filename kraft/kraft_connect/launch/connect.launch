@@ -1,0 +1,6 @@
+<launch>
+
+	<node name="udp_receiver" pkg="kraft_connect" type="udp_receiver" output="screen" />
+	<node name="udp_sender"   pkg="kraft_connect" type="udp_sender"   output="screen" />
+
+</launch>

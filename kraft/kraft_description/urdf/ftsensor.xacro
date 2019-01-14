@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <!-- Meshes -->
+  <xacro:property name="wrist_coupling_mesh"   value="package://kraft_description/meshes/visual/wrist_coupling.dae" />
+  <xacro:property name="ft_coupling_mesh"   value="package://kraft_description/meshes/visual/ft_coupling.dae" />
+  <xacro:property name="ft_sensor_mesh"        value="package://kraft_description/meshes/visual/ft_sensor.dae" />
+  <xacro:property name="robotiq_coupling_mesh" value="package://kraft_description/meshes/visual/robotiq_coupling.dae" />
+  <!-- Dimensions -->
+  <xacro:property name="wrist_coupling_radius" value="23.8e-3" />
+  <xacro:property name="wrist_coupling_length" value="19e-3" />
+  <xacro:property name="ft_coupling_radius" value="33.7e-3" />
+  <xacro:property name="ft_coupling_length" value="19e-3" />
+  <xacro:property name="ft_sensor_radius" value="37e-3" />
+  <xacro:property name="ft_sensor_length" value="28e-3" />
+  <!-- Links Mass -->
+  <xacro:property name="wrist_coupling_mass"    value="0.059" />    <!-- Density: 5000 kg/m3 -->
+  <xacro:property name="ft_coupling_mass"    value="0.1478" />   <!-- Density: 4070 kg/m3 -->
+  <xacro:property name="ft_sensor_mass"         value="0.2396" />   <!-- Density: 1750 kg/m3 -->
+  
+  <xacro:property name="robotiq_coupling_mass"  value="0.2304" />   <!-- Density: 4440 kg/m3 -->
+  <xacro:property name="robotiq_mass"           value="2.438" />
+  
+  <xacro:macro name="ftsensor" params="parent">
+    <!-- Links -->
+    <create_link name="wrist_coupling" color="white" mesh="${wrist_coupling_mesh}" >
+      <cylinder_collision radius="${wrist_coupling_radius}" length="${wrist_coupling_length}" />
+      <cylinder_inertia radius="${wrist_coupling_radius}" length="${wrist_coupling_length}" mass="${wrist_coupling_mass}"/>
+    </create_link>
+    
+    <link name="ft_coupling">
+      <visual>
+        <geometry>
+          <mesh filename="${ft_coupling_mesh}" />
+        </geometry>
+        <material name="white" />
+      </visual>
+      <!-- Align the collision with the mess. It has an offset of 4.7 mm -->
+      <collision>
+        <origin xyz="0 0 ${4.7e-3 + ft_coupling_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${ft_coupling_radius}" length="${ft_coupling_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${4.7e-3 + ft_coupling_length/2}" rpy="0 0 0" />
+        <mass value="${ft_coupling_mass}" />
+        <inertia  ixx="${ft_coupling_mass*ft_coupling_radius**2 / 4  + ft_coupling_mass*ft_coupling_length**2 / 12}" ixy="0.0"  ixz="0.0" 
+                  iyy="${ft_coupling_mass*ft_coupling_radius**2 / 4  + ft_coupling_mass*ft_coupling_length**2 / 12}" iyz="0.0"  
+                  izz="${ft_coupling_mass*ft_coupling_radius**2 / 2}" />
+      </inertial>
+    </link>
+    
+    <link name="ft_sensor">
+      <visual>
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 0"/>
+        <geometry>
+          <mesh filename="${ft_sensor_mesh}" />
+        </geometry>
+        <material name="white" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 ${-ft_sensor_length/2}" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${ft_sensor_radius}" length="${ft_sensor_length}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="0 0 ${-ft_sensor_length/2}" rpy="0 0 0" />
+        <mass value="${ft_sensor_mass}" />
+        <inertia  ixx="${ft_sensor_mass*ft_sensor_radius**2 / 4  + ft_sensor_mass*ft_sensor_length**2 / 12}" ixy="0.0"  ixz="0.0" 
+                  iyy="${ft_sensor_mass*ft_sensor_radius**2 / 4  + ft_sensor_mass*ft_sensor_length**2 / 12}" iyz="0.0"  
+                  izz="${ft_sensor_mass*ft_sensor_radius**2 / 2}" />
+      </inertial>
+    </link>
+    
+    <!-- Joints -->
+    <joint name="ft_robot_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-pi/2} 0 0" />
+      <parent link="${parent}" />
+      <child link="wrist_coupling" />
+    </joint>
+    
+
+    <joint name="ft_wrist_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="wrist_coupling" />
+      <child link="ft_coupling" />
+    </joint>
+
+
+    <joint name="ft_sensor_joint" type="fixed">
+      <origin xyz="0 0 ${4.7e-3 + ft_coupling_length + ft_sensor_length}" rpy="0 0 0" />
+      <parent link="ft_coupling" />
+      <child link="ft_sensor" />
+    </joint>
+    
+  </xacro:macro>
+</robot>

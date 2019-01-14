@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="ns" default="/kraft"/>
+
+  <!-- Export env variable so that gazebo find the models and materials -->
+  <env name="GAZEBO_MODEL_PATH" value="$(find kraft_worlds)/models" />
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- kraft_setup.world just contains camera, lights, ground plane, blue table, grips cage and test axis -->
+    <arg name="world_name" value="$(find kraft_worlds)/worlds/kraft_setup.world" />
+    <arg name="debug" value="false" />
+    <arg name="gui" value="true" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="false"/>
+  </include>
+
+  <!--group ns="$(arg ns)"-->
+    <!-- Load the URDF into the ROS Parameter Server -->
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find kraft_description)/urdf/kraft.xacro'" />
+
+    <!-- Spawn a Kraft in Gazebo taking the description from the parameter server -->
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+      	args="-x 0.0 -y 0.0 -z 0.8 -urdf -model kraft -param robot_description"/>
+  <!--/group-->
+
+
+  <!-- Start kraft robot -->
+  <!--<include file="$(find kraft_gazebo)/launch/grips_no_controllers.launch">
+    <arg name="robot_name" value="grips_robotiq" />
+    <arg name="robot_initial_pose" value="-z 0.8" />
+  </include>-->
+
+  <!-- ros_control kraft launch file -->
+  <!--include file="$(find kraft_control)/launch/kraft_control.launch" /-->
+
+</launch>

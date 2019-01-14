@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: kraft_teleop
+Description: Description of kraft_teleop
+Version: 0.0.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: genmsg roscpp rospy std_msgs

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+  
+  <name>kraft_worlds</name>
+  <description>The kraft_worlds package</description>
+
+  <version>0.2.0</version>
+  <maintainer email="dvargasfr@gmail.com">David Vargas</maintainer>
+  <license>BSD</license>
+  <author>David Vargas</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <build_depend>roscpp</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+  
+  <run_depend>roscpp</run_depend>
+  <run_depend>gazebo_ros</run_depend>
+  
+  <export>
+    <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" />
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+  </export>
+  
+</package>

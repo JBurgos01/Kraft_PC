@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<robot name="kraft" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <!-- Import common macros-->
+  <xacro:include filename="$(find kraft_description)/urdf/common.xacro" />
+  <!-- Import materials for rviz-->
+  <xacro:include filename="$(find kraft_description)/urdf/materials.xacro" />
+  <!-- Import robot without gripper -->
+  <xacro:include filename="$(find kraft_description)/urdf/serial_arm.xacro" />
+  <!-- Import ft sensor >
+  <xacro:include filename="$(find kraft_description)/urdf/ftsensor.xacro" /-->
+  <!-- Import simple gripper -->
+  <xacro:include filename="$(find kraft_description)/urdf/jaw_gripper.xacro" /> 
+  
+  <!-- Create the grips robot -->
+  <link name="world" />
+  <serial_arm parent="world"/>
+  <simple_gripper parent="end_effector"/>
+  
+  <!-- Add the ft_sensor >
+  <ftsensor parent="end_effector"/-->
+  
+  <!-- ros_control plugin  -->
+  <gazebo>
+    <plugin name="ros_control" filename="libgazebo_ros_control.so"/>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <jointName>SA, SE, linkage_tr, WP, WY, WR</jointName>
+    </plugin>
+  </gazebo>
+  
+</robot>

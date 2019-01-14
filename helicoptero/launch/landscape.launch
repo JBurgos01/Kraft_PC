@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+  <include file="$(find helicoptero)/launch/start.launch">
+   <arg name="world" value="$(find helicoptero)/worlds/empty_sky.world"/> 
+  </include>
+
+</launch>

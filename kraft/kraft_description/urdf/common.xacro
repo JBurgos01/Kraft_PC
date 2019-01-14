@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+  <!-- Auxiliar Values -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="gripper_effort" value="200" />
+  <xacro:property name="gripper_velocity" value="15" />
+  <xacro:property name="max_effort" value="400" />
+  <xacro:property name="max_velocity" value="5" />
+  
+  <!-- Macros -->
+  <xacro:macro name="cylinder_collision" params="radius length">
+    <collision>
+      <origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${radius}" length="${length}"/>
+      </geometry>
+    </collision>
+  </xacro:macro>
+  <xacro:macro name="cylinder_inertia" params="mass radius length">
+    <inertial>
+      <origin xyz="0 0 ${length/2}" rpy="0 0 0" />
+      <mass value="${mass}" />
+      <inertia  ixx="${mass*radius**2 / 4  + mass*length**2 / 12}" ixy="0.0"  ixz="0.0" 
+                iyy="${mass*radius**2 / 4  + mass*length**2 / 12}" iyz="0.0"  
+                izz="${mass*radius**2 / 2}" />
+    </inertial>
+  </xacro:macro>
+  <!-- Link Macro -->
+  <xacro:macro name="create_link" params="name color mesh *collision *inertia">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <mesh filename="${mesh}" />
+        </geometry>
+        <material name="${color}" />
+      </visual>
+      <xacro:insert_block name="collision" />
+      <xacro:insert_block name="inertia" />
+    </link>
+  </xacro:macro>
+  <!-- A smaller dummy link makes the model to explode in Gazebo -->
+  <xacro:macro name="dummy_link" params="name">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <sphere radius="0.01"/>
+        </geometry>
+        <material name="blue" />
+      </visual>
+      <collision>
+        <geometry>
+          <sphere radius="0.01"/>
+        </geometry>
+      </collision>
+      <cylinder_inertia radius="0.01" length="0.02" mass="0.05"/>
+    </link>
+  </xacro:macro>
+  <!-- Transmission Macro -->
+  <xacro:macro name="simple_transmission" params="joint">
+    <transmission name="${joint}_tran" type="transmission_interface/SimpleTransmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${joint}">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <!--hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface-->
+      </joint>
+      <actuator name="${joint}_motor">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <!--hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface-->
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+      <mechanicalReduction>1</mechanicalReduction>
+    </transmission>
+  </xacro:macro>
+</robot>

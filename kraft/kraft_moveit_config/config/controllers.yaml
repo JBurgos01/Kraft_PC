@@ -1,0 +1,11 @@
+controller_list:
+  - name: /
+    action_ns: joints_controller/follow_joint_trajectory
+    type: FollowJointTrajectory
+    joints:
+      - SA
+      - SE
+      - linkage_tr
+      - WR
+      - WY
+      - WP

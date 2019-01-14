@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="test_axis">
+    <static>false</static>
+    <link name="link_cube">
+      <gravity> 0 </gravity>
+      <pose>0 0 0.05 0 0 0</pose>       
+
+      <!--collision name="axis_x">
+        <pose>0.1 0 0 0 1.6 0</pose>
+        <geometry>
+          <cylinder>
+              <radius>.01</radius>
+              <length>.2</length>
+            </cylinder>
+        </geometry>
+      </collision-->
+      <visual name="axis_x">
+        <pose>0.1 0 0 0 1.6 0</pose>
+        <geometry>
+          <cylinder>
+              <radius>.01</radius>
+              <length>.2</length>
+            </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
+      </visual> 
+
+      <!--collision name="axis_y">
+        <pose>0 0.1 0 1.6 0 0</pose>
+        <geometry>
+          <cylinder>
+              <radius>.01</radius>
+              <length>.2</length>
+            </cylinder>
+        </geometry>
+      </collision-->
+      <visual name="axis_y">
+        <pose>0 0.1 0 1.6 0 0</pose>
+        <geometry>
+          <cylinder>
+              <radius>.01</radius>
+              <length>.2</length>
+            </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Green</name>
+          </script>
+        </material>
+      </visual>   
+     
+      <!--collision name="axis_z">
+        <pose>0 0 0.1 0 0 0</pose>
+        <geometry>
+          <cylinder>
+              <radius>.01</radius>
+              <length>.2</length>
+            </cylinder>
+        </geometry>
+      </collision-->
+      <visual name="axis_z">
+        <pose>0 0 0.1 0 0 0</pose>
+        <geometry>
+          <cylinder>
+              <radius>.01</radius>
+              <length>.2</length>
+            </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Blue</name>
+          </script>
+        </material>
+      </visual> 
+    </link>
+  </model>
+</sdf>

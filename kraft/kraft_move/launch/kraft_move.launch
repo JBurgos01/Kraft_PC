@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="kraft_move" pkg="kraft_move" type="kraft_move" respawn="false" output="screen">
+  </node>
+
+</launch>

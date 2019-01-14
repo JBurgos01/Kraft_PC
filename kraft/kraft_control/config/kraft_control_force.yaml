@@ -1,0 +1,27 @@
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 1000.0
+SA:
+    type: effort_controllers/JointPositionController
+    joint: SA
+    pid: {p: 10000, i: 0, d: 100}
+SE:
+    type: effort_controllers/JointPositionController
+    joint: SE
+    pid: {p: 1000000, i: 0, d: 100}
+linkage_tr:
+    type: effort_controllers/JointPositionController
+    joint: linkage_tr
+    pid: {p: 10000, i: 0, d: 100}
+WP:
+    type: effort_controllers/JointPositionController
+    joint: WP
+    pid: {p: 10000, i: 0, d: 100}
+WY:
+    type: effort_controllers/JointPositionController
+    joint: WY
+    pid: {p: 3000, i: 0, d: 50}
+WR:
+    type: effort_controllers/JointPositionController
+    joint: WR
+    pid: {p: 1, i: 0, d: 0}

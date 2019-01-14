@@ -1,0 +1,9 @@
+Contenido de los diferentes archivos:
+
+MTH_ORIG: Lista original de los puntos.
+
+OUT: Resultado del cálculo de la cinemática inversa de cada punto. -3 sin solución, 1 con solución. En caso positivo se indican las 6 coordenadas articulares de la solución.
+
+MTH: MTH_ORIG + OUT.
+
+IK: Lista de solo los puntos que tienen solución de cinemática inversa. Se indica posición en la que se encuentra cada punto en MTH_ORIG, se matriz homogénea, y las 6 coordenadas articulares de la solución.

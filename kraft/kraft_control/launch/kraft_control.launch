@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="ns" default="/kraft"/>
+<!-- load force controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find kraft_control)/config/kraft_control_force.yaml" command="load"/>
+
+<!-- load the force controllers -->
+    <node name="controller_manager" pkg="controller_manager" type="spawner" respawn="false"
+	  output="screen"             
+      args="SA SE linkage_tr WP WY WR joint_state_controller" />
+
+<!-- load position controller configurations from YAML file to parameter server -->
+<!--    <rosparam file="$(find kraft_control)/config/kraft_control_position.yaml" command="load"/>
+-->
+<!-- load the position controllers -->
+<!--    <node name="controller_manager" pkg="controller_manager" type="spawner" respawn="false"
+	  output="screen"             
+      args="joint_state_controller joints_controller" />
+-->
+</launch>

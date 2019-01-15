@@ -1,0 +1,8 @@
+helicóptero es el paquete que dejo yo de la modificación del hector_quadcopter. 
+Se inicia muy parecido al quadcopter, con: 
+	
+	roslaunch helicoptero demo_helicoptero.launch
+
+El paquete del helicóptero requiere que todo lo del hector_pkgs esté en el PC. 
+Lo de hector_pkgs es tal cual lo bajé de internet, sin modificaciones.
+En CADs_torre dejo todos los stl de la torre partida en cachos, y también los DWG por si fuera necesario hacer modificaciones.
